@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import Home from "./pages/Home";
 import DeckPage from "./pages/DeckPage";
+import QuestionPage from "./pages/QuestionPage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -29,6 +30,18 @@ class App extends Component {
                 headerBackTitleStyle: { color: "#DDDDDD" },
                 headerTintColor: "#DDDDDD",
               }}
+            />
+            <Stack.Screen 
+            name="QuestionPage"
+            component={QuestionPage}
+            options={{
+              title: "Back",
+              headerStyle: { backgroundColor: "#576759" },
+              headerTitleStyle: { color: "#DDDDDD" },
+              headerBackTitleStyle: { color: "#DDDDDD" },
+              headerTintColor: "#DDDDDD",
+            }}
+
             />
           </Stack.Navigator>
         </NavigationContainer>

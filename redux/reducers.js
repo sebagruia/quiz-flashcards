@@ -1,4 +1,4 @@
-import {RECEIVE_ITEMS} from "./actions";
+import {RECEIVE_ITEMS, ADD_ITEM} from "./actions";
 
 const initialState = {
 
@@ -10,6 +10,10 @@ const initialState = {
         case RECEIVE_ITEMS:
             return{
                 ...state, ...action.payload
+            }
+        case ADD_ITEM:
+            return{
+                ...state, 
             }
             default:
                return state

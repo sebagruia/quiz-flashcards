@@ -2,13 +2,14 @@ import React, { Fragment } from "react";
 import AddCardButton from "./AddCardButton";
 import StartQuizButton from "./StartQuizButton";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
-import { MaterialIcons, FontAwesome, EvilIcons } from "@expo/vector-icons";
+import { MaterialIcons} from "@expo/vector-icons";
 
 const Deck = ({ title, questions, date, navigation, renderedInDeckPage }) => {
   const number = questions.length;
-  const onPress = () => {
+  const toDeckPage = () => {
     navigation.navigate("DeckPage", { title, questions, date });
   };
+ 
   return (
     <Fragment>
       {renderedInDeckPage ? (
@@ -30,7 +31,7 @@ const Deck = ({ title, questions, date, navigation, renderedInDeckPage }) => {
       ) : (
         <TouchableOpacity
           style={[styles.deck, { flexDirection: "row" }]}
-          onPress={onPress}
+          onPress={toDeckPage}
         >
           <View style={{ flex: 2, alignItems: "flex-start" }}>
             <Text style={[styles.textDeck, { fontSize: 20 }]}>{title}</Text>
@@ -48,9 +49,7 @@ const Deck = ({ title, questions, date, navigation, renderedInDeckPage }) => {
               justifyContent: "center",
             }}
           >
-            {renderedInDeckPage ? null : (
               <MaterialIcons name="play-arrow" size={20} color="#fff" />
-            )}
           </View>
         </TouchableOpacity>
       )}
