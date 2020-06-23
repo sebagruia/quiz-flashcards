@@ -1,3 +1,10 @@
+import {AsyncStorage} from "react-native";
+
+const QUIZ_FLASHCARDS_DATABASE = "QUIZ_FLASHCARDS_DATABASE";
+
+
+
+
 export const DATA = {
   React: {
     id: 1,
