@@ -4,6 +4,8 @@ import store from "./redux/store";
 import Home from "./pages/Home";
 import DeckPage from "./pages/DeckPage";
 import QuestionPage from "./pages/QuestionPage";
+import NewCardPage from "./pages/NewCardPage";
+import NewDeckPage from "./pages/NewDeckPage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -31,21 +33,43 @@ class App extends Component {
                 headerTintColor: "#DDDDDD",
               }}
             />
-            <Stack.Screen 
-            name="QuestionPage"
-            component={QuestionPage}
-            options={{
-              title: "Back",
-              headerStyle: { backgroundColor: "#576759" },
-              headerTitleStyle: { color: "#DDDDDD" },
-              headerBackTitleStyle: { color: "#DDDDDD" },
-              headerTintColor: "#DDDDDD",
-            }}
+            <Stack.Screen
+              name="QuestionPage"
+              component={QuestionPage}
+              options={{
+                title: "Back",
+                headerStyle: { backgroundColor: "#576759" },
+                headerTitleStyle: { color: "#DDDDDD" },
+                headerBackTitleStyle: { color: "#DDDDDD" },
+                headerTintColor: "#DDDDDD",
+              }}
+            />
+            <Stack.Screen
+              name="NewCardPage"
+              component={NewCardPage}
+              options={{
+                title: "Back",
+                headerStyle: { backgroundColor: "#576759" },
+                headerTitleStyle: { color: "#DDDDDD" },
+                headerBackTitleStyle: { color: "#DDDDDD" },
+                headerTintColor: "#DDDDDD",
+              }}
+            />
 
+            <Stack.Screen
+              name="NewDeckPage"
+              component={NewDeckPage}
+              options={{
+                title: "Back",
+                headerStyle: { backgroundColor: "#576759" },
+                headerTitleStyle: { color: "#DDDDDD" },
+                headerBackTitleStyle: { color: "#DDDDDD" },
+                headerTintColor: "#DDDDDD",
+              }}
             />
           </Stack.Navigator>
         </NavigationContainer>
-       </Provider>
+      </Provider>
     );
   }
 }

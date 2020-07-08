@@ -1,10 +1,10 @@
 import React from "react";
 import Question from "../components/Question"
 
-const QuestionPage = ({ route }) => {
+const QuestionPage = ({ navigation,route }) => {
 
   return (
-    <Question {...route.params}/>
+    <Question route={route} navigation={navigation}/>
   );
 };
 

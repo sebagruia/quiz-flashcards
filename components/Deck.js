@@ -22,9 +22,9 @@ const Deck = ({ title, questions, date, navigation, renderedInDeckPage }) => {
             <Text style={[styles.textDeck, { fontSize: 25 }]}>{`${number} ${
               number === 1 ? "flashcard" : "flashcards"
             }`}</Text>
-          </View>
+          </View> 
           <View style={styles.buttonsContainer}>
-            <AddCardButton />
+            <AddCardButton/>
             <StartQuizButton />
           </View>
         </View>

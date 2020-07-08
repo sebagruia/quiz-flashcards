@@ -3,8 +3,6 @@ import {AsyncStorage} from "react-native";
 const QUIZ_FLASHCARDS_DATABASE = "QUIZ_FLASHCARDS_DATABASE";
 
 
-
-
 export const DATA = {
   React: {
     id: 1,
@@ -18,6 +16,10 @@ export const DATA = {
       {
         question: "Where do you make Ajax requests in React?",
         answer: "The componentDidMount lifecycle event",
+      },
+      {
+        question: "What does fetch() return?",
+        answer: "A promise",
       },
     ],
   },

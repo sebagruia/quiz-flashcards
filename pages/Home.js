@@ -3,35 +3,30 @@ import { connect } from "react-redux";
 import { receiveItemsAction } from "../redux/actions";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import Deck from "../components/Deck";
+import Header from "../components/Header";
+import AddDeckButton from "../components/AddDeckButton";
 import { DATA } from "../utils/DATA";
-import { Feather } from "@expo/vector-icons";
 
 class Home extends Component {
-
-  componentDidMount(){
+  componentDidMount() {
     this.props.retreviveItems();
   }
   renderItem = ({ item }) => {
     return <Deck {...item} navigation={this.props.navigation} />;
   };
 
-  
   render() {
-    const {items} = this.props;
+    const { items } = this.props;
     const deckNumber = Object.keys(items).length;
     return (
       <View style={styles.container}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.homeText}>Quiz Flashcards</Text>
-          <Text style={styles.homeSubText}>the way to test your knowledge</Text>
-          <View style={styles.logo}>
-            <Feather name="layers" size={50} color="#576759" />
-          </View>
-        </View>
-
+        <Header />
         <View style={styles.decksInfoContainer}>
           <View style={styles.deckNumber}>
-            <Text style={styles.deckNumberText}>{deckNumber} Decks</Text>
+            <View>
+              <Text style={styles.deckNumberText}>{deckNumber} Decks</Text>
+            </View>
+            <AddDeckButton />
           </View>
           <FlatList
             data={Object.values(items)}
@@ -44,11 +39,11 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = (state)=>{
-  return{
-    items:state.items
-  }
-}
+const mapStateToProps = (state) => {
+  return {
+    items: state.items,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     retreviveItems: () => dispatch(receiveItemsAction(DATA)),
@@ -86,8 +81,10 @@ const styles = StyleSheet.create({
   },
   deckNumber: {
     width: 320,
+    display: "flex",
     flexDirection: "row",
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   deckNumberText: {
     fontSize: 30,

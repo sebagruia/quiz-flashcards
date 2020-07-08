@@ -8,7 +8,6 @@ const DeckPage = ({route})=>{
         <View style={styles.deckPageContainer}>
             <Deck title={title} questions={questions} date={date} renderedInDeckPage/>
         </View>
-       
     );
 }
 
