@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-// import { addDeckAction } from "../redux/actions";
-import { addDeckAction } from "../utils/DATA";
+import { receiveItemsAction } from "../redux/actions";
+import { addDeck } from "../utils/DATA";
 
 class NewDeckPage extends Component {
   constructor() {
@@ -18,14 +18,14 @@ class NewDeckPage extends Component {
   };
 
   addNewDeck = () => {
-    // this.props.dispatch(addDeckAction(this.state.value));
-    addDeckAction(this.state.value);
+    addDeck(this.state.value);
+    this.props.dispatch(receiveItemsAction());
     this.props.navigation.goBack(this.props.items);
   };
 
   render() {
     const { value } = this.state;
-    
+
     return (
       <View style={styles.newDeckPageContainer}>
         <View style={styles.newDeckPageText}>
@@ -82,6 +82,5 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
 });
-
 
 export default connect()(NewDeckPage);

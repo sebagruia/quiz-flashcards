@@ -1,14 +1,11 @@
 import AsyncStorage from "@react-native-community/async-storage";
 
-const DATABASE = "DATABASE";
 
-
+let questionArray = [];
 
 export const getAsyncStorageData = async () => {
-  // await AsyncStorage.clear();
   try {
     const jsonValue = await AsyncStorage.getItem("Angular")
-    // console.log(JSON.parse(jsonValue));
     return jsonValue != null ? JSON.parse(jsonValue) : null
   } catch(e) {
     console.log(e);
@@ -41,20 +38,16 @@ export const formatDate = () => {
 };
 
 
-export const addDeckAction = (title) => {
+export const addDeck = (title) => {
   const deck = {
     title: title,
     date: formatDate(),
     questions: [],
   };
   storeDeckToAsyncStorage(title, deck);
-  // return {
-  //   type: ADD_DECK,
-  //   payload: deck,
-  // };
 };
 
-export const addCardAction = (questionValue, answerValue, title) => {
+export const addCard = (questionValue, answerValue, title) => {
   const question = {
     question: questionValue,
     answer: answerValue,
@@ -67,12 +60,8 @@ export const addCardAction = (questionValue, answerValue, title) => {
     questions: questionArray,
   };
 
-  storeDeckToAsyncStorage(title, deck);
+  storeDeckToAsyncStorage(title, deck );
 
-  // return {
-  //   type: ADD_CARD,
-  //   payload: { title, question },
-  // };
 };
 
 

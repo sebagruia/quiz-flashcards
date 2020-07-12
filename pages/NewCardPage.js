@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import { useRoute } from "@react-navigation/native";
-// import { addCardAction } from "../redux/actions";
-import { addCardAction } from "../utils/DATA";
+import { receiveItemsAction } from "../redux/actions";
+import { addCard } from "../utils/DATA";
 
 const NewCardPage = ({ navigation }) => {
-
   const route = useRoute();
   const { title } = route.params;
 
@@ -23,12 +22,8 @@ const NewCardPage = ({ navigation }) => {
   };
 
   const handleOnSubmit = () => {
-    // const questionFormat = {
-    //   question: questionValue,
-    //   answer: answerValue,
-    // };
-    // dispatch(addCardAction(questionValue, answerValue, title));
-    addCardAction(questionValue, answerValue, title);
+    addCard(questionValue, answerValue, title);
+    dispatch(receiveItemsAction());
     navigation.goBack();
   };
 

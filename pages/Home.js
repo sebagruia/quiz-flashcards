@@ -12,17 +12,13 @@ class Home extends Component {
   }
 
   renderItem = ({ item }) => {
-    return <Deck {...JSON.parse(item[1])} navigation={this.props.navigation} />;
+    return <Deck {...item} navigation={this.props.navigation} />;
   };
 
   render() {
     const { items } = this.props;
-    console.log(items);
 
     const deckNumber = Object.keys(items).length;
-    // console.log(Object.values(items));
-    // const test = {...Object.values(items)}
-    // console.log(test);
     return (
       <View style={styles.container}>
         <Header />
@@ -38,10 +34,10 @@ class Home extends Component {
               <FlatList
                 data={Object.values(items)}
                 renderItem={this.renderItem}
-                // keyExtractor={(item) => item.title}
-                keyExtractor={(item) => item[0]}
+                keyExtractor={(item) => item.title}
               />
           </View>
+
         </View>
       </View>
     );
@@ -49,10 +45,9 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  // console.log(state);
   return {
     items: state.items,
-    // items: state,
   };
 };
 
@@ -114,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps,mapDispatchToProps)(Home);
