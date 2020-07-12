@@ -1,23 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { receiveItemsAction } from "../redux/actions";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import Deck from "../components/Deck";
 import Header from "../components/Header";
 import AddDeckButton from "../components/AddDeckButton";
-import { DATA } from "../utils/DATA";
+import { receiveItemsAction } from "../redux/actions";
 
 class Home extends Component {
   componentDidMount() {
-    this.props.retreviveItems();
+    this.props.getAsyncStorageContent();
   }
+
   renderItem = ({ item }) => {
-    return <Deck {...item} navigation={this.props.navigation} />;
+    return <Deck {...JSON.parse(item[1])} navigation={this.props.navigation} />;
   };
 
   render() {
     const { items } = this.props;
+    console.log(items);
+
     const deckNumber = Object.keys(items).length;
+    // console.log(Object.values(items));
+    // const test = {...Object.values(items)}
+    // console.log(test);
     return (
       <View style={styles.container}>
         <Header />
@@ -28,11 +33,15 @@ class Home extends Component {
             </View>
             <AddDeckButton />
           </View>
-          <FlatList
-            data={Object.values(items)}
-            renderItem={this.renderItem}
-            keyExtractor={(item) => item.id.toString()}
-          />
+          
+          <View style={{ flex: 0.9 }}>
+              <FlatList
+                data={Object.values(items)}
+                renderItem={this.renderItem}
+                // keyExtractor={(item) => item.title}
+                keyExtractor={(item) => item[0]}
+              />
+          </View>
         </View>
       </View>
     );
@@ -40,13 +49,16 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
     items: state.items,
+    // items: state,
   };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    retreviveItems: () => dispatch(receiveItemsAction(DATA)),
+    getAsyncStorageContent: () => dispatch(receiveItemsAction()),
   };
 };
 

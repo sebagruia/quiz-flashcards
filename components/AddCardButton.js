@@ -3,11 +3,11 @@ import {Text, TouchableOpacity, StyleSheet} from "react-native";
 import {EvilIcons} from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 
-const AddCardButton = () => {
+const AddCardButton = ({title}) => {
   const navigation = useNavigation();
 
   const addNewCard = ()=>{
-    navigation.navigate('NewCardPage');
+    navigation.navigate('NewCardPage', {title:title});
   }
   return (
     <TouchableOpacity style={styles.addCard} onPress={addNewCard}>

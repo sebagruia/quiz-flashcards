@@ -1,9 +1,12 @@
 import React from "react";
-import {View, StyleSheet} from "react-native";
+import {View, StyleSheet, ImageStore} from "react-native";
 import Deck from "../components/Deck";
+import {useSelector} from "react-redux";
+import items from "../redux/reducers";
 
 const DeckPage = ({route})=>{
-   const {title, questions, date} = route.params;
+   const {title, date } = route.params;
+   const questions = useSelector(state=>state.items[title].questions);
     return(
         <View style={styles.deckPageContainer}>
             <Deck title={title} questions={questions} date={date} renderedInDeckPage/>

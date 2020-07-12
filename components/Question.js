@@ -1,12 +1,14 @@
 import React, { Fragment, useState } from "react";
 import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 
 let questionNumber = 0;
 let correctAnswer = 0;
 
 const Question = ({ route, navigation }) => {
-  const { title, questions } = route.params;
+  const { title } = route.params;
+  const questions = useSelector((state) => state.items[title].questions);
 
   const [showAnswer, setShowAnswer] = useState(false);
   const [restart, setRestart] = useState(false);
@@ -24,8 +26,6 @@ const Question = ({ route, navigation }) => {
     if (questionNumber === numberOfQuestions) {
       setRestart(!restart);
       questionNumber = 0;
-        
-      
     }
   };
 
@@ -41,12 +41,10 @@ const Question = ({ route, navigation }) => {
   const returnToDeck = () => {
     correctAnswer = 0;
     navigation.navigate("DeckPage");
-    
   };
   const restartQuiz = () => {
     correctAnswer = 0;
     setRestart(!restart);
-    
   };
 
   return (
@@ -82,7 +80,8 @@ const Question = ({ route, navigation }) => {
               <Fragment>
                 <Text>Quiz Completed</Text>
                 <Text>
-                  You've got {correctAnswer} out of {numberOfQuestions} correct ({Math.round((correctAnswer / numberOfQuestions) * 100)}%)
+                  You've got {correctAnswer} out of {numberOfQuestions} correct
+                  ({Math.round((correctAnswer / numberOfQuestions) * 100)}%)
                 </Text>
               </Fragment>
             ) : (

@@ -8,8 +8,9 @@ const StartQuizButton = () => {
   const route = useRoute();
   const { title, questions, date } = route.params;
 
+
   const toQuestionPage = () => {
-    navigation.navigate("QuestionPage", { title, questions, date });
+    navigation.navigate("QuestionPage", { title,date });
   };
   return (
     <TouchableOpacity style={styles.addCard} onPress={toQuestionPage}>

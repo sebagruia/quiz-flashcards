@@ -9,6 +9,7 @@ const Deck = ({ title, questions, date, navigation, renderedInDeckPage }) => {
   const toDeckPage = () => {
     navigation.navigate("DeckPage", { title, questions, date });
   };
+
  
   return (
     <Fragment>
@@ -24,7 +25,7 @@ const Deck = ({ title, questions, date, navigation, renderedInDeckPage }) => {
             }`}</Text>
           </View> 
           <View style={styles.buttonsContainer}>
-            <AddCardButton/>
+            <AddCardButton title={title}/>
             <StartQuizButton />
           </View>
         </View>

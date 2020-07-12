@@ -1,12 +1,35 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
+import { useDispatch } from "react-redux";
+import { useRoute } from "@react-navigation/native";
+// import { addCardAction } from "../redux/actions";
+import { addCardAction } from "../utils/DATA";
 
-const NewCardPage = () => {
+const NewCardPage = ({ navigation }) => {
 
-  const [value, setValue] = useState("");
+  const route = useRoute();
+  const { title } = route.params;
 
-  const handleOnChange = (text) => {
-    setValue(text);
+  const dispatch = useDispatch();
+
+  const [questionValue, setQuestionValue] = useState("");
+  const [answerValue, setAnswerValue] = useState("");
+
+  const handleOnChangeQuestion = (text) => {
+    setQuestionValue(text);
+  };
+  const handleOnChangeAnswer = (text) => {
+    setAnswerValue(text);
+  };
+
+  const handleOnSubmit = () => {
+    // const questionFormat = {
+    //   question: questionValue,
+    //   answer: answerValue,
+    // };
+    // dispatch(addCardAction(questionValue, answerValue, title));
+    addCardAction(questionValue, answerValue, title);
+    navigation.goBack();
   };
 
   return (
@@ -18,32 +41,22 @@ const NewCardPage = () => {
       <View style={styles.newCardPageInput}>
         <Text style={{ marginBottom: 5 }}>Your Question</Text>
         <TextInput
-          style={{
-            height: 40,
-            borderColor: "gray",
-            borderWidth: 1,
-            borderRadius: 5,
-          }}
-          onChangeText={handleOnChange}
-          value={value}
+          style={styles.newCardPageTextInput}
+          onChangeText={handleOnChangeQuestion}
+          value={questionValue}
         />
       </View>
       <View style={styles.newCardPageInput}>
         <Text style={{ marginBottom: 5 }}>Answer</Text>
         <TextInput
-          style={{
-            height: 40,
-            borderColor: "gray",
-            borderWidth: 1,
-            borderRadius: 5,
-          }}
-          onChangeText={handleOnChange}
-          value={value}
+          style={styles.newCardPageTextInput}
+          onChangeText={handleOnChangeAnswer}
+          value={answerValue}
         />
       </View>
       <View style={styles.newCardPageButton}>
         <Button
-          //   onPress={returnToDeck}
+          onPress={handleOnSubmit}
           title="Create Card"
           accessibilityLabel="button with label Show Answer"
           color="#576759"
@@ -73,6 +86,13 @@ const styles = StyleSheet.create({
   },
   newCardPageButton: {
     width: 320,
+  },
+  newCardPageTextInput: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingLeft: 10,
   },
 });
 
