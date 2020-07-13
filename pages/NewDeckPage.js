@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { receiveItemsAction } from "../redux/actions";
-import { addDeck } from "../utils/DATA";
+import { addDeck, formatDate } from "../utils/utils_index";
 
 class NewDeckPage extends Component {
   constructor() {
@@ -18,7 +18,12 @@ class NewDeckPage extends Component {
   };
 
   addNewDeck = () => {
-    addDeck(this.state.value);
+    const deck = {
+      title: this.state.value,
+      date: formatDate(),
+      questions: [],
+    };
+    addDeck(this.state.value, deck);
     this.props.dispatch(receiveItemsAction());
     this.props.navigation.goBack(this.props.items);
   };

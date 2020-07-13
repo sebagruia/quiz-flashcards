@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRoute } from "@react-navigation/native";
 import { receiveItemsAction } from "../redux/actions";
-import { addCard } from "../utils/DATA";
+import { addCard,formatDate } from "../utils/utils_index";
 
 const NewCardPage = ({ navigation }) => {
   const route = useRoute();
   const { title } = route.params;
 
   const dispatch = useDispatch();
+  const deckQuestions = useSelector(state=>state.items[title].questions);
 
   const [questionValue, setQuestionValue] = useState("");
   const [answerValue, setAnswerValue] = useState("");
@@ -22,7 +23,17 @@ const NewCardPage = ({ navigation }) => {
   };
 
   const handleOnSubmit = () => {
-    addCard(questionValue, answerValue, title);
+    const question = {
+      question: questionValue,
+      answer: answerValue,
+    };
+  
+    const deck = {
+      title: title,
+      date: formatDate(),
+      questions: [...deckQuestions,question],
+    };
+    addCard( title,deck);
     dispatch(receiveItemsAction());
     navigation.goBack();
   };

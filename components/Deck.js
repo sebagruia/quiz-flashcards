@@ -2,15 +2,15 @@ import React, { Fragment } from "react";
 import AddCardButton from "./AddCardButton";
 import StartQuizButton from "./StartQuizButton";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
-import { MaterialIcons} from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const Deck = ({ title, questions, date, navigation, renderedInDeckPage }) => {
   const number = questions.length;
+
   const toDeckPage = () => {
     navigation.navigate("DeckPage", { title, questions, date });
   };
 
- 
   return (
     <Fragment>
       {renderedInDeckPage ? (
@@ -23,10 +23,10 @@ const Deck = ({ title, questions, date, navigation, renderedInDeckPage }) => {
             <Text style={[styles.textDeck, { fontSize: 25 }]}>{`${number} ${
               number === 1 ? "flashcard" : "flashcards"
             }`}</Text>
-          </View> 
+          </View>
           <View style={styles.buttonsContainer}>
-            <AddCardButton title={title}/>
-            <StartQuizButton />
+            <AddCardButton title={title} />
+            <StartQuizButton questions={questions} />
           </View>
         </View>
       ) : (
@@ -50,7 +50,7 @@ const Deck = ({ title, questions, date, navigation, renderedInDeckPage }) => {
               justifyContent: "center",
             }}
           >
-              <MaterialIcons name="play-arrow" size={20} color="#fff" />
+            <MaterialIcons name="play-arrow" size={20} color="#fff" />
           </View>
         </TouchableOpacity>
       )}
@@ -76,13 +76,13 @@ const styles = StyleSheet.create({
   textDeck: {
     color: "#fff",
   },
-  buttonsContainer:{
-    flex:0.5, 
-    marginTop:100
+  buttonsContainer: {
+    flex: 0.5,
+    marginTop: 100,
   },
-  buttonText:{
+  buttonText: {
     fontSize: 30,
-    color:"#576759"
+    color: "#576759",
   },
 
   addCard: {

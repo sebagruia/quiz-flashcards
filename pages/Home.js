@@ -7,6 +7,7 @@ import AddDeckButton from "../components/AddDeckButton";
 import { receiveItemsAction } from "../redux/actions";
 
 class Home extends Component {
+
   componentDidMount() {
     this.props.getAsyncStorageContent();
   }
@@ -24,20 +25,19 @@ class Home extends Component {
         <Header />
         <View style={styles.decksInfoContainer}>
           <View style={styles.deckNumber}>
-            <View>
+            <View style={{marginRight:50}}>
               <Text style={styles.deckNumberText}>{deckNumber} Decks</Text>
             </View>
             <AddDeckButton />
           </View>
-          
-          <View style={{ flex: 0.9 }}>
-              <FlatList
-                data={Object.values(items)}
-                renderItem={this.renderItem}
-                keyExtractor={(item) => item.title}
-              />
-          </View>
 
+          <View style={{ flex: 0.9 }}>
+            <FlatList
+              data={Object.values(items)}
+              renderItem={this.renderItem}
+              keyExtractor={(item) => item.title}
+            />
+          </View>
         </View>
       </View>
     );
@@ -45,7 +45,6 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state);
   return {
     items: state.items,
   };
@@ -109,4 +108,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
