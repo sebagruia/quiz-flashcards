@@ -59,6 +59,7 @@ const Question = ({ route, navigation }) => {
           title={title}
           numberOfQuestions={numberOfQuestions}
           questionNumber={questionNumber}
+          showAnswer={showAnswer}
           restart={restart}
         />
         <FlashCardQuestion
@@ -67,6 +68,7 @@ const Question = ({ route, navigation }) => {
           numberOfQuestions={numberOfQuestions}
           restart={restart}
           correctAnswer={correctAnswer}
+          showAnswer={showAnswer}
           questions={questions}
         />
       </View>
@@ -98,12 +100,6 @@ const Question = ({ route, navigation }) => {
             paddingRight: 30,
           }}
         >
-          <Text style={{ fontSize: 30, marginBottom: 20, color: "#7C926F" }}>
-            Answer
-          </Text>
-          <Text style={{ fontSize: 20, color: "#D7457B" }}>
-            {questions[questionNumber].answer}
-          </Text>
 
           <View style={{ flex: 1 }}>
             <Text style={{ paddingTop: 30, fontSize: 30, color: "#7C926F" }}>

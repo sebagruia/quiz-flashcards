@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 import {Text, View, StyleSheet} from "react-native";
 
-const FlashCardInfo = ({title, numberOfQuestions,restart, questionNumber}) => {
+const FlashCardInfo = ({title, numberOfQuestions,restart, questionNumber,showAnswer}) => {
   return (
     <View style={styles.flashCardInfo}>
       <View
@@ -10,7 +10,7 @@ const FlashCardInfo = ({title, numberOfQuestions,restart, questionNumber}) => {
           { borderRightWidth: 4, borderColor: "#d9d9d9" },
         ]}
       >
-        <Text style={{ color: "#fff", fontSize: 25 }}>{title}</Text>
+        <Text style={{ color: "#fff", fontSize: 25 }}>{showAnswer ? "Answer" : title}</Text>
       </View>
       <View style={styles.flashCardTitle}>
         <Text style={{ color: "#fff", fontSize: 20 }}>Question</Text>

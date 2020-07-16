@@ -3,6 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 
 const FlashCardQuestion = ({
   correctAnswer,
+  showAnswer,
   numberOfQuestions,
   restart,
   questionNumber,
@@ -22,14 +23,11 @@ const FlashCardQuestion = ({
         ) : (
           <Fragment>
             <Text
-              style={{
-                color: "#fff",
-                fontSize: 20,
-                padding: 20,
-                textAlign: "center",
-              }}
+              style={[styles.question, showAnswer ? { fontSize:30} : null]}
             >
-              {questions[questionNumber].question}
+              {showAnswer
+                ? questions[questionNumber].answer
+                : questions[questionNumber].question}
             </Text>
           </Fragment>
         )}
@@ -52,6 +50,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly",
   },
+  question:{
+    color: "#fff",
+    fontSize: 20,
+    padding: 20,
+    textAlign: "center",
+  }
 });
 
 export default FlashCardQuestion;

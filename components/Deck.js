@@ -19,7 +19,7 @@ const Deck = ({ title, questions, date, handleRemoveIcon }) => {
             number === 1 ? "flashcard" : "flashcards"
           }`}</Text>
         </View>
-        <TouchableOpacity style={{ marginTop: 20 }} role="button" onPress={setNotification}>
+        <TouchableOpacity style={{ marginTop: 20 }} role="button">
           <EvilIcons
             name="trash"
             size={40}
