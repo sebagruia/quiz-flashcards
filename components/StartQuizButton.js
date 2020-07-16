@@ -26,17 +26,19 @@ const StartQuizButton = () => {
   };
 
   return (
-    <TouchableOpacity style={styles.addCard} onPress={toQuestionPage}>
+    <TouchableOpacity
+      style={styles.startQuiz}
+      onPress={toQuestionPage}
+      role="button"
+    >
       <View style={styles.buttonContainer}>
-        <EvilIcons name="play" size={70} color="#576759" />
+        <EvilIcons name="play" size={60} color="#D7457B" />
         <Text style={styles.buttonText}>Start Quiz</Text>
       </View>
 
       {questionsArrayLength === 0 ? (
-        <View style={{}}>
-          <Text style={{ fontSize: 12, marginLeft: 80 }}>
-            no flashcards in deck
-          </Text>
+        <View>
+          <Text style={styles.noFlashCards}>no flashcards in deck</Text>
         </View>
       ) : null}
     </TouchableOpacity>
@@ -45,17 +47,31 @@ const StartQuizButton = () => {
 
 // Styles
 const styles = StyleSheet.create({
-  buttonContainer:{
-    flexDirection: "row", alignItems: "center" 
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    paddingLeft: 5,
+    paddingRight: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
+    borderWidth: 1,
+    borderRadius: 30,
+    borderColor: "#D7457B",
   },
   buttonText: {
-    fontSize: 30,
-    color: "#576759",
+    fontSize: 25,
+    color: "#D7457B",
   },
 
-  addCard: {
+  startQuiz: {
     flex: 1,
     flexDirection: "column",
+  },
+  noFlashCards: {
+    fontSize: 14,
+    marginLeft: 20,
+    color: "#D7457B",
   },
 });
 

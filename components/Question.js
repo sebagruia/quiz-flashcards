@@ -1,7 +1,12 @@
 import React, { Fragment, useState } from "react";
-import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
-import { Fontisto } from "@expo/vector-icons";
+import { View, Text, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
+import ShowAnswerButton from "./ShowAnswerButton";
+import RestartQuizAndReturnToDeckButton from "./RestartQuizAndReturnToDeckButton";
+import SmileButton from "./SmileButton";
+import SadButton from "./SadButton";
+import FlashCardInfo from "./FlashCardInfo";
+import FlashCardQuestion from "./FlashCardQuestion";
 
 let questionNumber = 0;
 let correctAnswer = 0;
@@ -50,99 +55,64 @@ const Question = ({ route, navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.flashCardContainer}>
-        <View style={styles.flashCardInfo}>
-          <View
-            style={[
-              styles.flashCardTitle,
-              { borderRightWidth: 4, borderColor: "#d9d9d9" },
-            ]}
-          >
-            <Text style={{ color: "#fff", fontSize: 25 }}>{title}</Text>
-          </View>
-          <View style={styles.flashCardTitle}>
-            <Text style={{ color: "#fff", fontSize: 20 }}>Question</Text>
-            <Text style={{ color: "#fff", fontSize: 20 }}>
-              {restart ? (
-                <Fragment>
-                  {numberOfQuestions}/{numberOfQuestions}
-                </Fragment>
-              ) : (
-                <Fragment>
-                  {questionNumber + 1}/{numberOfQuestions}
-                </Fragment>
-              )}
-            </Text>
-          </View>
-        </View>
-        <View style={[{ flex: 1 }, styles.flashCardQuestion]}>
-          <View style={styles.flashCardQuestionText}>
-            {restart ? (
-              <Fragment>
-                <Text>Quiz Completed</Text>
-                <Text>
-                  You've got {correctAnswer} out of {numberOfQuestions} correct
-                  ({Math.round((correctAnswer / numberOfQuestions) * 100)}%)
-                </Text>
-              </Fragment>
-            ) : (
-              <Fragment>
-                <Text style={{ color: "#fff", fontSize: 20 }}>
-                  {questions[questionNumber].question}
-                </Text>
-              </Fragment>
-            )}
-          </View>
-        </View>
+        <FlashCardInfo
+          title={title}
+          numberOfQuestions={numberOfQuestions}
+          questionNumber={questionNumber}
+          restart={restart}
+        />
+        <FlashCardQuestion
+          numberOfQuestions={numberOfQuestions}
+          questionNumber={questionNumber}
+          numberOfQuestions={numberOfQuestions}
+          restart={restart}
+          correctAnswer={correctAnswer}
+          questions={questions}
+        />
       </View>
       {!showAnswer ? (
-        <View style={{ flex: 1, flexDirection: "row", marginTop: 100 }}>
-          <View style={{ flex: 1, paddingRight: 20, paddingLeft: 20 }}>
+        <View style={{ flex: 1, marginTop: 100 }}>
+          <View style={{ flex: 0.4, paddingRight: 20, paddingLeft: 20 }}>
             {restart ? (
               <Fragment>
-                <Button
-                  onPress={restartQuiz}
-                  title="Start Quiz Again"
-                  accessibilityLabel="button with label Show Answer"
-                  color="#576759"
+                <RestartQuizAndReturnToDeckButton
+                  restartQuiz={restartQuiz}
+                  quiz
                 />
-                <Button
-                  onPress={returnToDeck}
-                  title="Return To Deck"
-                  accessibilityLabel="button with label Show Answer"
-                  color="#576759"
-                />
+                <RestartQuizAndReturnToDeckButton returnToDeck={returnToDeck} />
               </Fragment>
             ) : (
-              <Button
-                onPress={handleShowAnswerButton}
-                title="Show Answer"
-                accessibilityLabel="button with label Show Answer"
-                color="#576759"
+              <ShowAnswerButton
+                handleShowAnswerButton={handleShowAnswerButton}
               />
             )}
           </View>
         </View>
       ) : (
-        <View style={{ flex: 1, padding: 30 }}>
-          <Text style={{ fontSize: 25, marginBottom: 10 }}>Answer</Text>
-          <Text style={{ fontSize: 20 }}>
+        <View
+          style={{
+            flex: 1.1,
+            paddingTop: 20,
+            paddingBottom: 50,
+            paddingLeft: 30,
+            paddingRight: 30,
+          }}
+        >
+          <Text style={{ fontSize: 30, marginBottom: 20, color: "#7C926F" }}>
+            Answer
+          </Text>
+          <Text style={{ fontSize: 20, color: "#D7457B" }}>
             {questions[questionNumber].answer}
           </Text>
 
           <View style={{ flex: 1 }}>
-            <Text style={{ paddingTop: 30, fontSize: 20 }}>
+            <Text style={{ paddingTop: 30, fontSize: 30, color: "#7C926F" }}>
               Was your answer:
             </Text>
             <View style={styles.flashCardButtonContainer}>
-              <TouchableOpacity onPress={choosingCorrectAnswer}>
-                <Fontisto name="smiling" color="#3B3C22" size={60} />
-              </TouchableOpacity>
-
-              <Text style={{ fontSize: 20 }}>or</Text>
-
-              <TouchableOpacity onPress={choosingWrongAnswer}>
-                <Fontisto name="confused" color="#3B3C22" size={60} />
-              </TouchableOpacity>
+              <SmileButton choosingCorrectAnswer={choosingCorrectAnswer} />
+              <Text style={{ fontSize: 20, color: "#7C926F" }}>or</Text>
+              <SadButton choosingWrongAnswer={choosingWrongAnswer} />
             </View>
           </View>
         </View>
@@ -175,6 +145,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   flashCardQuestion: {
+    flex: 1,
     flexDirection: "row",
     backgroundColor: "#D7457B",
     borderBottomRightRadius: 10,
@@ -183,7 +154,7 @@ const styles = StyleSheet.create({
   flashCardQuestionText: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
   },
   flashCardButtonContainer: {
     marginTop: 40,

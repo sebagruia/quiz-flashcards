@@ -1,94 +1,64 @@
-import React, { Fragment } from "react";
+import React from "react";
 import AddCardButton from "./AddCardButton";
 import StartQuizButton from "./StartQuizButton";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { EvilIcons } from "@expo/vector-icons";
 
-const Deck = ({ title, questions, date, navigation, renderedInDeckPage }) => {
+
+const Deck = ({ title, questions, date, handleRemoveIcon }) => {
   const number = questions.length;
-
-  const toDeckPage = () => {
-    navigation.navigate("DeckPage", { title, questions, date });
-  };
-
   return (
-    <Fragment>
-      {renderedInDeckPage ? (
-        <View style={{ flex: 1 }}>
-          <View style={[styles.deck, { marginTop: 50 }]}>
-            <Text style={[styles.textDeck, { fontSize: 40 }]}>{title}</Text>
-            <Text style={[styles.textDeck, { fontSize: 15, marginBottom: 50 }]}>
-              Created: {date}
-            </Text>
-            <Text style={[styles.textDeck, { fontSize: 25 }]}>{`${number} ${
-              number === 1 ? "flashcard" : "flashcards"
-            }`}</Text>
-          </View>
-          <View style={styles.buttonsContainer}>
-            <AddCardButton title={title} />
-            <StartQuizButton questions={questions} />
-          </View>
+    <View style={{ flex: 1 }}>
+      <View style={[styles.deck, { marginTop: 50 }]}>
+        <View>
+          <Text style={[styles.textDeck, { fontSize: 40 }]}>{title}</Text>
+          <Text style={[styles.textDeck, { fontSize: 15, marginBottom: 50 }]}>
+            Created: {date}
+          </Text>
+          <Text style={[styles.textDeck, { fontSize: 25 }]}>{`${number} ${
+            number === 1 ? "flashcard" : "flashcards"
+          }`}</Text>
         </View>
-      ) : (
-        <TouchableOpacity
-          style={[styles.deck, { flexDirection: "row" }]}
-          onPress={toDeckPage}
-        >
-          <View style={{ flex: 2, alignItems: "flex-start" }}>
-            <Text style={[styles.textDeck, { fontSize: 20 }]}>{title}</Text>
-            <Text style={[styles.textDeck, { fontSize: 10, marginBottom: 20 }]}>
-              Created: {date}
-            </Text>
-            <Text style={[styles.textDeck, { fontSize: 15 }]}>{`${number} ${
-              number === 1 ? "flashcard" : "flashcards"
-            }`}</Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              alignItems: "flex-end",
-              justifyContent: "center",
-            }}
-          >
-            <MaterialIcons name="play-arrow" size={20} color="#fff" />
-          </View>
+        <TouchableOpacity style={{ marginTop: 20 }} role="button" onPress={setNotification}>
+          <EvilIcons
+            name="trash"
+            size={40}
+            color="#576759"
+            onPress={handleRemoveIcon}
+          />
         </TouchableOpacity>
-      )}
-    </Fragment>
+      </View>
+
+      <View style={styles.buttonsContainer}>
+        <AddCardButton title={title} />
+        <StartQuizButton questions={questions} />
+      </View>
+    </View>
   );
 };
 
 // Styles
 const styles = StyleSheet.create({
   deck: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     width: 320,
     paddingTop: 15,
     paddingBottom: 15,
     paddingLeft: 25,
     paddingRight: 25,
     marginTop: 20,
-    backgroundColor: "#7C926F",
-    borderWidth: 0.8,
+    borderWidth: 2,
     borderColor: "#576759",
     borderRadius: 10,
-    elevation: 5,
+    elevation: 1,
   },
   textDeck: {
-    color: "#fff",
-  },
-  buttonsContainer: {
-    flex: 0.5,
-    marginTop: 100,
-  },
-  buttonText: {
-    fontSize: 30,
     color: "#576759",
   },
-
-  addCard: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
+  buttonsContainer: {
+    flex: 0.8,
+    marginTop: 200,
   },
 });
 export default Deck;

@@ -8,10 +8,17 @@ import NewCardPage from "./pages/NewCardPage";
 import NewDeckPage from "./pages/NewDeckPage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import {setLocalNotification, clearLocalNotification} from "./utils/utils_index";
 
 const Stack = createStackNavigator();
 
 class App extends Component {
+  
+  componentDidMount(){
+    clearLocalNotification()
+    .then(setLocalNotification());
+  }
+
   render() {
     return (
       <Provider store={store}>

@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { receiveItemsAction } from "../redux/actions";
 import { addDeck, formatDate } from "../utils/utils_index";
+import CreateCardAndDeckButton from "../components/CreateCardAndDeckButton";
 
 class NewDeckPage extends Component {
   constructor() {
@@ -18,14 +19,18 @@ class NewDeckPage extends Component {
   };
 
   addNewDeck = () => {
-    const deck = {
-      title: this.state.value,
-      date: formatDate(),
-      questions: [],
-    };
-    addDeck(this.state.value, deck);
-    this.props.dispatch(receiveItemsAction());
-    this.props.navigation.goBack(this.props.items);
+    if (this.state.value) {
+      const deck = {
+        title: this.state.value,
+        date: formatDate(),
+        questions: [],
+      };
+      addDeck(this.state.value, deck);
+      this.props.dispatch(receiveItemsAction());
+      this.props.navigation.goBack();
+    } else {
+      alert("Please fill all fields");
+    }
   };
 
   render() {
@@ -34,8 +39,10 @@ class NewDeckPage extends Component {
     return (
       <View style={styles.newDeckPageContainer}>
         <View style={styles.newDeckPageText}>
-          <Text style={{ fontSize: 30 }}>Add Deck</Text>
-          <Text>create a new deck of flashcards</Text>
+          <Text style={styles.textStyle}>Add Deck</Text>
+          <Text style={{ color: "#576759" }}>
+            create a new deck of flashcards
+          </Text>
         </View>
         <View style={styles.newDeckPageInput}>
           <Text style={{ marginBottom: 5 }}>Title</Text>
@@ -46,12 +53,7 @@ class NewDeckPage extends Component {
           />
         </View>
         <View style={styles.newDeckPageButton}>
-          <Button
-            onPress={this.addNewDeck}
-            title="Create Deck"
-            accessibilityLabel="button with label Show Answer"
-            color="#576759"
-          />
+          <CreateCardAndDeckButton addNewDeck={this.addNewDeck} />
         </View>
       </View>
     );
@@ -85,6 +87,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingLeft: 10,
+  },
+  textStyle: {
+    fontSize: 30,
+    color: "#576759",
   },
 });
 

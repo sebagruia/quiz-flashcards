@@ -1,4 +1,4 @@
-import { RECEIVE_ITEMS } from "./actions";
+import { RECEIVE_ITEMS, REMOVE_ITEM } from "./actions";
 
 const initialState = {
 };
@@ -10,6 +10,11 @@ const items = (state = initialState, action) => {
         ...state,
         ...action.payload,
       };
+    // case REMOVE_ITEM:
+    //   return {
+    //     ...state,
+    //     ...action.payload,
+    //   };
 
     default:
       return state;

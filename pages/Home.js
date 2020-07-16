@@ -1,23 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import Deck from "../components/Deck";
 import Header from "../components/Header";
 import AddDeckButton from "../components/AddDeckButton";
+import DeckInList from "../components/DeckInList";
 import { receiveItemsAction } from "../redux/actions";
 
 class Home extends Component {
-
-  componentDidMount() {
+  
+   componentDidMount() {
     this.props.getAsyncStorageContent();
   }
 
+
   renderItem = ({ item }) => {
-    return <Deck {...item} navigation={this.props.navigation} />;
+    return <DeckInList {...item} />;
   };
 
   render() {
     const { items } = this.props;
+    console.log(items);
 
     const deckNumber = Object.keys(items).length;
     return (
@@ -25,7 +27,7 @@ class Home extends Component {
         <Header />
         <View style={styles.decksInfoContainer}>
           <View style={styles.deckNumber}>
-            <View style={{marginRight:50}}>
+            <View style={{ marginRight: 50 }}>
               <Text style={styles.deckNumberText}>{deckNumber} Decks</Text>
             </View>
             <AddDeckButton />
@@ -46,7 +48,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.items,
+    items: state.items
   };
 };
 
@@ -94,8 +96,8 @@ const styles = StyleSheet.create({
   },
   deckNumberText: {
     fontSize: 30,
+    fontWeight: "100",
     color: "#576759",
-    elevation: 4,
   },
   homeText: {
     color: "#d9d9d9",

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -11,23 +11,40 @@ const AddCardButton = ({ title }) => {
   };
   return (
     <TouchableOpacity style={styles.addCard} onPress={addNewCard}>
-      <EvilIcons name="plus" size={70} color="#576759" />
-      <Text style={styles.buttonText}>Add Card</Text>
+      <View style={styles.buttonContainer}>
+        <EvilIcons name="plus" size={60} color="#7C926F" />
+        <Text style={styles.buttonText}>Add Card</Text>
+      </View>
     </TouchableOpacity>
   );
 };
 
 // Styles
 const styles = StyleSheet.create({
+  buttonContainer: {
+    flex:1,
+    width:250,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent:"space-around",
+    paddingLeft:5,
+    paddingRight:10,
+    paddingTop:5,
+    paddingBottom:5,
+    borderWidth:1,
+    borderColor:'#7C926F',
+    borderRadius:30
+  },
   buttonText: {
-    fontSize: 30,
-    color: "#576759",
+    fontSize: 25,
+    color: "#7C926F",
   },
 
   addCard: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent:"center"
   },
 });
 
