@@ -1,6 +1,5 @@
 import React from "react";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
-import { EvilIcons } from "@expo/vector-icons";
 
 const RestartQuizAndReturnToDeckButton = ({
   restartQuiz,

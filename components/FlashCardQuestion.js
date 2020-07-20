@@ -23,7 +23,7 @@ const FlashCardQuestion = ({
         ) : (
           <Fragment>
             <Text
-              style={[styles.question, showAnswer ? { fontSize:30} : null]}
+              style={[styles.question, showAnswer ? { fontSize:25} : null]}
             >
               {showAnswer
                 ? questions[questionNumber].answer

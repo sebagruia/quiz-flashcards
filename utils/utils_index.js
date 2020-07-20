@@ -14,20 +14,21 @@ export const formatDate = () => {
   return todayUTC.toISOString().split("T")[0];
 };
 
-export const storeDeckToAsyncStorage = async (key, value) => {
+export const storeDeckToAsyncStorage = async (title,value) => {
+  // await AsyncStorage.clear();
   try {
     const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem(key, jsonValue);
+    await AsyncStorage.setItem(title, jsonValue);
   } catch (error) {
     console.log(`Error when storing data to AsyncStorage ${error}`);
   }
 };
 
-export const addDeck = (title, deck) => {
+export const addDeckToAsyncStorage = (title, deck) => {
   storeDeckToAsyncStorage(title, deck);
 };
 
-export const addCard = (title, deck) => {
+export const addCardToAsyncStorage = (title, deck) => {
   storeDeckToAsyncStorage(title, deck);
 };
 
@@ -46,6 +47,8 @@ export const removeDeckFromAsyncStorage = async (title) => {
     console.log(`Error trying to remove deck from AsyncStorage ${e}`);
   }
 };
+
+
 
 // Notifications
 
@@ -78,7 +81,7 @@ export const setLocalNotification = async () => {
       await Notifications.cancelAllScheduledNotificationsAsync();
 
       let tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate());
+      tomorrow.setDate(tomorrow.getDate()+1);
       tomorrow.setHours(14);
       tomorrow.setMinutes(0);
 

@@ -1,46 +1,36 @@
 import React, { useState } from "react";
+import {connect} from "react-redux";
 import {
   Text,
   View,
   TextInput,
   StyleSheet,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
 import { useRoute } from "@react-navigation/native";
-import { receiveItemsAction } from "../redux/actions";
-import { addCard, formatDate } from "../utils/utils_index";
+import { receiveItemsAction,addCardAction } from "../redux/actions";
 import CreateCardAndDeckButton from "../components/CreateCardAndDeckButton";
 
-const NewCardPage = ({ navigation }) => {
-  const route = useRoute();
-  const { title } = route.params;
-
-  const dispatch = useDispatch();
-  const deckQuestions = useSelector((state) => state.items[title].questions);
+const NewCardPage = ({ dispatch, navigation, items }) => {
 
   const [questionValue, setQuestionValue] = useState("");
   const [answerValue, setAnswerValue] = useState("");
 
+  const route = useRoute();
+  const { title } = route.params;
+
+  const questions = items[title].questions;
+
   const handleOnChangeQuestion = (text) => {
     setQuestionValue(text);
   };
+
   const handleOnChangeAnswer = (text) => {
     setAnswerValue(text);
   };
 
   const handleOnSubmit = () => {
     if (questionValue && answerValue) {
-      const question = {
-        question: questionValue,
-        answer: answerValue,
-      };
-
-      const deck = {
-        title: title,
-        date: formatDate(),
-        questions: [...deckQuestions, question],
-      };
-      addCard(title, deck);
+      dispatch(addCardAction(title, questions, questionValue, answerValue));
       dispatch(receiveItemsAction());
       navigation.goBack();
     } else {
@@ -77,6 +67,12 @@ const NewCardPage = ({ navigation }) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    items: state.itemsReducer.asyncStorageContent,
+  };
+};
+
 // Styles
 const styles = StyleSheet.create({
   newCardPageContainer: {
@@ -111,4 +107,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewCardPage;
+
+
+export default connect(mapStateToProps)(NewCardPage);

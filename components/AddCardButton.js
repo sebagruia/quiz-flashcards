@@ -12,7 +12,7 @@ const AddCardButton = ({ title }) => {
   return (
     <TouchableOpacity style={styles.addCard} onPress={addNewCard}>
       <View style={styles.buttonContainer}>
-        <EvilIcons name="plus" size={60} color="#7C926F" />
+        <EvilIcons name="plus" size={50} color="#7C926F" />
         <Text style={styles.buttonText}>Add Card</Text>
       </View>
     </TouchableOpacity>

@@ -1,20 +1,18 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { EvilIcons } from "@expo/vector-icons";
 import { receiveItemsAction } from "../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
 
-const StartQuizButton = () => {
+const StartQuizButton = ({ dispatch, items }) => {
   const navigation = useNavigation();
 
   const route = useRoute();
 
   const { title, date } = route.params;
 
-  const dispatch = useDispatch();
-
-  const questions = useSelector((state) => state.items[title].questions);
+  const questions = !items[title] ? [] : items[title].questions;
 
   const questionsArrayLength = questions.length;
 
@@ -32,7 +30,7 @@ const StartQuizButton = () => {
       role="button"
     >
       <View style={styles.buttonContainer}>
-        <EvilIcons name="play" size={60} color="#D7457B" />
+        <EvilIcons name="play" size={50} color="#D7457B" />
         <Text style={styles.buttonText}>Start Quiz</Text>
       </View>
 
@@ -43,6 +41,12 @@ const StartQuizButton = () => {
       ) : null}
     </TouchableOpacity>
   );
+};
+
+const mapStateToProps = (state) => {
+  return {
+    items: state.itemsReducer.asyncStorageContent,
+  };
 };
 
 // Styles
@@ -66,6 +70,7 @@ const styles = StyleSheet.create({
 
   startQuiz: {
     flex: 1,
+    marginTop:20,
     flexDirection: "column",
   },
   noFlashCards: {
@@ -75,4 +80,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StartQuizButton;
+
+export default connect(mapStateToProps)(StartQuizButton);

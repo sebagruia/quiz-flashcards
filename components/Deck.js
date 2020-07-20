@@ -1,16 +1,17 @@
 import React from "react";
+import { connect } from "react-redux";
 import AddCardButton from "./AddCardButton";
 import StartQuizButton from "./StartQuizButton";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 
-
-const Deck = ({ title, questions, date, handleRemoveIcon }) => {
+const Deck = ({ title, date, handleRemoveIcon, items }) => {
+  const questions = !items[title] ? [] : items[title].questions;
   const number = questions.length;
   return (
     <View style={{ flex: 1 }}>
       <View style={[styles.deck, { marginTop: 50 }]}>
-        <View>
+        <View style={{flex:1}}>
           <Text style={[styles.textDeck, { fontSize: 40 }]}>{title}</Text>
           <Text style={[styles.textDeck, { fontSize: 15, marginBottom: 50 }]}>
             Created: {date}
@@ -37,6 +38,12 @@ const Deck = ({ title, questions, date, handleRemoveIcon }) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    items: state.itemsReducer.asyncStorageContent,
+  };
+};
+
 // Styles
 const styles = StyleSheet.create({
   deck: {
@@ -57,8 +64,9 @@ const styles = StyleSheet.create({
     color: "#576759",
   },
   buttonsContainer: {
-    flex: 0.8,
+    flex: 0.5,
     marginTop: 200,
   },
 });
-export default Deck;
+
+export default connect(mapStateToProps)(Deck);

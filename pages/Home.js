@@ -7,11 +7,15 @@ import DeckInList from "../components/DeckInList";
 import { receiveItemsAction } from "../redux/actions";
 
 class Home extends Component {
-  
-   componentDidMount() {
-    this.props.getAsyncStorageContent();
+  componentDidMount() {
+    this._unsubscribe = this.props.navigation.addListener("focus", () => {
+      this.props.getAsyncStorageContent();
+    });
   }
 
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
 
   renderItem = ({ item }) => {
     return <DeckInList {...item} />;
@@ -19,8 +23,6 @@ class Home extends Component {
 
   render() {
     const { items } = this.props;
-    console.log(items);
-
     const deckNumber = Object.keys(items).length;
     return (
       <View style={styles.container}>
@@ -48,7 +50,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.items
+    items: state.itemsReducer.asyncStorageContent,
   };
 };
 

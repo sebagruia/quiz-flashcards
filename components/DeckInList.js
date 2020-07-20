@@ -11,7 +11,7 @@ const DeckInList = ({ title, questions, date }) => {
   const number = questions.length;
 
   const toDeckPage = () => {
-    navigation.navigate("DeckPage", { title, questions, date });
+    navigation.navigate("DeckPage", { title, date });
   };
 
 

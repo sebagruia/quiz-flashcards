@@ -2,7 +2,7 @@
 # Quiz-Flashcards
 
 
-## Current Status
+## Project Description
 UNDER COSNTRUCTION
 
 ## Descriptions

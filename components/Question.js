@@ -13,7 +13,7 @@ let correctAnswer = 0;
 
 const Question = ({ route, navigation }) => {
   const { title } = route.params;
-  const questions = useSelector((state) => state.items[title].questions);
+  const questions = useSelector((state) => state.itemsReducer.asyncStorageContent[title].questions);
 
   const [showAnswer, setShowAnswer] = useState(false);
   const [restart, setRestart] = useState(false);
@@ -100,7 +100,6 @@ const Question = ({ route, navigation }) => {
             paddingRight: 30,
           }}
         >
-
           <View style={{ flex: 1 }}>
             <Text style={{ paddingTop: 30, fontSize: 30, color: "#7C926F" }}>
               Was your answer:

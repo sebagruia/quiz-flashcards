@@ -1,64 +1,54 @@
-import React, { Component } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import { receiveItemsAction } from "../redux/actions";
-import { addDeck, formatDate } from "../utils/utils_index";
+import { addDeckAction } from "../redux/actions";
+import {
+  clearLocalNotification,
+  setLocalNotification,
+} from "../utils/utils_index";
 import CreateCardAndDeckButton from "../components/CreateCardAndDeckButton";
 
-class NewDeckPage extends Component {
-  constructor() {
-    super();
+const NewDeckPage = ({dispatch, navigation}) => {
 
-    this.state = {
-      value: "",
-    };
-  }
+  const [value, setValue] = useState("");
 
-  handleOnChange = (text) => {
-    this.setState({ value: text });
+  const handleOnChange = (text) => {
+    setValue(text);
   };
 
-  addNewDeck = () => {
-    if (this.state.value) {
-      const deck = {
-        title: this.state.value,
-        date: formatDate(),
-        questions: [],
-      };
-      addDeck(this.state.value, deck);
-      this.props.dispatch(receiveItemsAction());
-      this.props.navigation.goBack();
+  const addNewDeck = () => {
+    if (value) {
+      clearLocalNotification().then(setLocalNotification());
+      dispatch(addDeckAction(value));
+      navigation.goBack();
     } else {
       alert("Please fill all fields");
     }
   };
 
-  render() {
-    const { value } = this.state;
-
-    return (
-      <View style={styles.newDeckPageContainer}>
-        <View style={styles.newDeckPageText}>
-          <Text style={styles.textStyle}>Add Deck</Text>
-          <Text style={{ color: "#576759" }}>
-            create a new deck of flashcards
-          </Text>
-        </View>
-        <View style={styles.newDeckPageInput}>
-          <Text style={{ marginBottom: 5 }}>Title</Text>
-          <TextInput
-            style={styles.newDeckPageTextInput}
-            onChangeText={this.handleOnChange}
-            value={value}
-          />
-        </View>
-        <View style={styles.newDeckPageButton}>
-          <CreateCardAndDeckButton addNewDeck={this.addNewDeck} />
-        </View>
+  return (
+    <View style={styles.newDeckPageContainer}>
+      <View style={styles.newDeckPageText}>
+        <Text style={styles.textStyle}>Add Deck</Text>
+        <Text style={{ color: "#576759" }}>
+          create a new deck of flashcards
+        </Text>
       </View>
-    );
-  }
-}
+      <View style={styles.newDeckPageInput}>
+        <Text style={{ marginBottom: 5 }}>Title</Text>
+        <TextInput
+          style={styles.newDeckPageTextInput}
+          onChangeText={handleOnChange}
+          value={value}
+        />
+      </View>
+      <View style={styles.newDeckPageButton}>
+        <CreateCardAndDeckButton addNewDeck={addNewDeck} />
+      </View>
+    </View>
+  );
+};
+
 
 // Styles
 const styles = StyleSheet.create({
