@@ -1,6 +1,15 @@
 
 # Quiz-Flashcards
 
+## Installing and Starting the App
+   *  Clone the project from the repository;
+   *  Install all dependencies by running the command "npm install" in your terminal. You have to be located in your project directory;
+   * Install the EXPO CLIENT app on your mobile phone from Google Store if you are using Android, or App Store if you are using IOS. Sign in the Expo Client App.
+   * Install the EXPO CLI globally  by running "npm install --global expo-cli";
+   * Connect your phone to your Desktop/Laptop unit;
+   * Start METRO BUNDLER by running "npm start" command;
+   * Start EXPO CLIENT app on your phone;
+   * Start the QUIZ-FLASHCARDS app on your phone from the EXPO CLIENT app by using the METRO BUNDLER tab on your Bowser. You can do that by clicking: RUN ON ANDROID DEVICE or RUN ON IOS depending o which system you are using or by scanning the BAR CODE on the left-down corner of your METRO BUNDLER page from your browser.
 
 ## Project Description
 The Quiz-Flashcards project is an application designed for ANDROID (not currently optimized for IOS) that allows users to study collections of flashcards. The app will allow users to create different categories of flashcards called "decks", add flashcards to those decks, then take quizzes on those decks.

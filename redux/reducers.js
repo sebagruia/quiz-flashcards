@@ -26,7 +26,6 @@ const itemsReducer = (state = initialState, action) => {
       const question = action.payload.question;
       const titleForCard = action.payload.title;
       const item = state.asyncStorageContent[titleForCard];
-      console.log(item);
       const questions = state.asyncStorageContent[titleForCard].questions;
       questions.push(question);
       return {
@@ -40,7 +39,6 @@ const itemsReducer = (state = initialState, action) => {
     case DELETE_DECK:
       const stateCopy = {...state.items};
       delete stateCopy[action.payload];
-      console.log(stateCopy)
       return {
         ...state, items:{...stateCopy}
       };

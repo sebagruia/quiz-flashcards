@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { removeDeckFromAsyncStorage } from "../utils/utils_index";
+import { formatDate } from "../utils/utils_index";
 import { deleteDeckAction } from "../redux/actions";
 import { connect } from "react-redux";
 import Deck from "../components/Deck";
@@ -10,15 +10,15 @@ const DeckPage = ({ dispatch, route, navigation }) => {
 
   const handleRemoveIcon = () => {
     dispatch(deleteDeckAction(title));
-    navigation.goBack();
+    navigation.navigate('Home');
   };
-
   return (
     <View style={styles.deckPageContainer}>
-      <Deck handleRemoveIcon={handleRemoveIcon} title={title} date={date} />
+      <Deck handleRemoveIcon={handleRemoveIcon} title={title} date={date ? date : formatDate()} />
     </View>
   );
 };
+
 
 // Styles
 const styles = StyleSheet.create({

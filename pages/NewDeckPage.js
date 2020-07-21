@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import { addDeckAction } from "../redux/actions";
-import {
-  clearLocalNotification,
-  setLocalNotification,
-} from "../utils/utils_index";
+import { addDeckAction,receiveItemsAction } from "../redux/actions";
 import CreateCardAndDeckButton from "../components/CreateCardAndDeckButton";
 
 const NewDeckPage = ({dispatch, navigation}) => {
@@ -15,12 +11,11 @@ const NewDeckPage = ({dispatch, navigation}) => {
   const handleOnChange = (text) => {
     setValue(text);
   };
-
   const addNewDeck = () => {
     if (value) {
-      clearLocalNotification().then(setLocalNotification());
       dispatch(addDeckAction(value));
-      navigation.goBack();
+      dispatch(receiveItemsAction());
+      navigation.navigate('DeckPage', {title:value});
     } else {
       alert("Please fill all fields");
     }

@@ -58,7 +58,6 @@ export const receiveItemsAction = () => async (dispatch) => {
       for (let element of jsonValue) {
         objectValues[element[0]] = JSON.parse(element[1]);
       }
-      console.log(objectValues);
       dispatch({
         type: RECEIVE_ITEMS,
         payload: objectValues,

@@ -12,11 +12,11 @@ const Deck = ({ title, date, handleRemoveIcon, items }) => {
     <View style={{ flex: 1 }}>
       <View style={[styles.deck, { marginTop: 50 }]}>
         <View style={{flex:1}}>
-          <Text style={[styles.textDeck, { fontSize: 40 }]}>{title}</Text>
-          <Text style={[styles.textDeck, { fontSize: 15, marginBottom: 50 }]}>
+          <Text style={styles.textDeckTitle}>{title}</Text>
+          <Text style={styles.textDeckCreated}>
             Created: {date}
           </Text>
-          <Text style={[styles.textDeck, { fontSize: 25 }]}>{`${number} ${
+          <Text style={styles.textDeckNumber}>{`${number} ${
             number === 1 ? "flashcard" : "flashcards"
           }`}</Text>
         </View>
@@ -60,8 +60,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 1,
   },
-  textDeck: {
+  textDeckTitle: {
     color: "#576759",
+    fontSize: 40 
+  },
+  textDeckCreated: {
+    color: "#576759",
+    fontSize: 15, 
+    marginBottom: 50
+  },
+  textDeckNumber: {
+    color: "#576759",
+    fontSize: 25
   },
   buttonsContainer: {
     flex: 0.5,

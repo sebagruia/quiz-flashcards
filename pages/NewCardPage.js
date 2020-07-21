@@ -17,8 +17,7 @@ const NewCardPage = ({ dispatch, navigation, items }) => {
 
   const route = useRoute();
   const { title } = route.params;
-
-  const questions = items[title].questions;
+  const questions = !items[title] ? [] : items[title].questions;
 
   const handleOnChangeQuestion = (text) => {
     setQuestionValue(text);

@@ -1,6 +1,10 @@
 import React, { Fragment, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
+import {
+  clearLocalNotification,
+  setLocalNotification,
+} from "../utils/utils_index";
 import ShowAnswerButton from "./ShowAnswerButton";
 import RestartQuizAndReturnToDeckButton from "./RestartQuizAndReturnToDeckButton";
 import SmileButton from "./SmileButton";
@@ -45,6 +49,7 @@ const Question = ({ route, navigation }) => {
 
   const returnToDeck = () => {
     correctAnswer = 0;
+    clearLocalNotification().then(setLocalNotification());
     navigation.navigate("DeckPage");
   };
   const restartQuiz = () => {
@@ -152,13 +157,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   flashCardButtonContainer: {
+    // backgroundColor:"yellow",
     marginTop: 40,
     flex: 0.5,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
-    paddingLeft: 30,
-    paddingRight: 30,
+    paddingLeft: 5,
+    paddingRight: 5,
   },
 });
 

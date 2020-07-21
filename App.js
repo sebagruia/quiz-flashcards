@@ -8,20 +8,14 @@ import NewCardPage from "./pages/NewCardPage";
 import NewDeckPage from "./pages/NewDeckPage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { HeaderBackButton } from '@react-navigation/stack';
 import {setLocalNotification} from "./utils/utils_index";
 
 const Stack = createStackNavigator();
 
-class App extends Component {
-  
-  componentDidMount(){
-    setLocalNotification();
-  }
-
-  render() {
-    return (
-      <Provider store={store}>
-        <NavigationContainer initialRouteName="Home">
+const RootNavigator = ()=>{
+return(
+  <NavigationContainer initialRouteName="Home">
           <Stack.Navigator>
             <Stack.Screen
               name="Home"
@@ -31,12 +25,23 @@ class App extends Component {
             <Stack.Screen
               name="DeckPage"
               component={DeckPage}
-              options={{
-                title: "Back",
-                headerStyle: { backgroundColor: "#576759" },
-                headerTitleStyle: { color: "#DDDDDD" },
-                headerBackTitleStyle: { color: "#DDDDDD" },
-                headerTintColor: "#DDDDDD",
+              options={({navigation})=>{
+                return{
+                  title: "Back",
+                  headerLeft: (props) => (
+                    <HeaderBackButton
+                      {...props}
+                      onPress={() => {
+                        navigation.navigate('Home');
+                      }}
+                    />
+                  ),
+                  headerStyle: { backgroundColor: "#576759" },
+                  headerTitleStyle: { color: "#DDDDDD" },
+                  headerBackTitleStyle: { color: "#DDDDDD" },
+                  headerTintColor: "#DDDDDD",
+                }
+              
               }}
             />
             <Stack.Screen
@@ -75,6 +80,19 @@ class App extends Component {
             />
           </Stack.Navigator>
         </NavigationContainer>
+);
+}
+
+class App extends Component {
+  
+  componentDidMount(){
+    setLocalNotification();
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <RootNavigator />
       </Provider>
     );
   }
